@@ -62,11 +62,12 @@ private lateinit var base:TextView
 
     private fun colorchange(p1:Int) {
         val text=when(p1){
-            in 0..9->"Poor"
-            in 10..14->"Acceptable"
-            in 15..19->"Good"
-            in 20..24->"Great"
-            else->"Amazing"
+            in 0..4->"\uD83D\uDE14"
+            in 5..9->"\uD83D\uDE10"
+            in 10..14->"\uD83D\uDE42"
+            in 15..19->"\uD83D\uDE04"
+            in 20..24->"\uD83D\uDE0D"
+            else->"\uD83E\uDD29"
         }
         textview.text=text
 val color=ArgbEvaluator().evaluate(
