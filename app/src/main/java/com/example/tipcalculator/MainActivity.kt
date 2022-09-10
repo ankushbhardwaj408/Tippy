@@ -20,6 +20,8 @@ private lateinit var base:TextView
     private lateinit var total:TextView
     private lateinit var percent:TextView
     private lateinit var textview:TextView
+    private lateinit var split:TextView
+    private lateinit var perperson:TextView
    private var initial=15
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,8 @@ private lateinit var base:TextView
         tip=findViewById(R.id.tvTipAmount)
         total=findViewById(R.id.tvTotalAmount)
         textview=findViewById(R.id.textView)
+        split=findViewById(R.id.split)
+        perperson=findViewById(R.id.perperson)
       percent.text="$initial%"
        seekbar.progress=initial
        colorchange(initial)
@@ -38,6 +42,7 @@ private lateinit var base:TextView
 
         percent.text="$p1%"
         compute()
+        compperperson()
        colorchange(p1)
     }
 
@@ -53,10 +58,21 @@ private lateinit var base:TextView
 
             override fun afterTextChanged(p0: Editable?) {
                 compute()
+                compperperson()
             }
 
         })
 
+        split.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun afterTextChanged(p0: Editable?) {
+              compperperson()
+            }
+
+        })
 
     }
 
@@ -93,4 +109,23 @@ textview.setTextColor(color)
         total.text="%.2f".format(totalans)
 
     }
+    private fun compperperson()
+    {
+        if(base.text.isEmpty()) {
+            tip.text=""
+            total.text=""
+            return
+        }
+        if(split.text.isEmpty())
+        {
+            perperson.text=""
+            return
+        }
+        val x1=split.text.toString().toDouble()
+        val y=total.text.toString().toDouble()
+        val ans1=(y/x1)
+        perperson.text="%.2f".format(ans1)
+
+    }
+
 }
