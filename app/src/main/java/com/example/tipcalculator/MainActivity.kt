@@ -115,6 +115,7 @@ textview.setTextColor(color)
         if(base.text.isEmpty()) {
             tip.text=""
             total.text=""
+            perperson.text=""
             return
         }
         val x=base.text.toString().toDouble()
