@@ -20,8 +20,9 @@ private lateinit var base:TextView
     private lateinit var total:TextView
     private lateinit var percent:TextView
     private lateinit var textview:TextView
-    private lateinit var split:TextView
+    private lateinit var split:SeekBar
     private lateinit var perperson:TextView
+    private lateinit var textview3:TextView
    private var initial=15
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,10 @@ private lateinit var base:TextView
         textview=findViewById(R.id.textView)
         split=findViewById(R.id.split)
         perperson=findViewById(R.id.perperson)
+        textview3=findViewById(R.id.textView3)
+
+        split.progress=1
+
       percent.text="$initial%"
        seekbar.progress=initial
        colorchange(initial)
@@ -42,7 +47,7 @@ private lateinit var base:TextView
 
         percent.text="$p1%"
         compute()
-        compperperson()
+        compperperson(split.progress)
        colorchange(p1)
     }
 
@@ -58,19 +63,30 @@ private lateinit var base:TextView
 
             override fun afterTextChanged(p0: Editable?) {
                 compute()
-                compperperson()
+                compperperson(split.progress)
             }
 
         })
 
-        split.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {
-              compperperson()
+//        split.addTextChangedListener(object :TextWatcher{
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+//
+//            override fun afterTextChanged(p0: Editable?) {
+//              compperperson()
+//            }
+//
+//        })
+        split.setOnSeekBarChangeListener(object :SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+textview3.text="Split in $p1"
+                compperperson(split.progress)
             }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
 
         })
 
@@ -109,19 +125,15 @@ textview.setTextColor(color)
         total.text="%.2f".format(totalans)
 
     }
-    private fun compperperson()
+    private fun compperperson(num:Int)
     {
         if(base.text.isEmpty()) {
             tip.text=""
             total.text=""
             return
         }
-        if(split.text.isEmpty())
-        {
-            perperson.text=""
-            return
-        }
-        val x1=split.text.toString().toDouble()
+
+        val x1=num.toDouble()
         val y=total.text.toString().toDouble()
         val ans1=(y/x1)
         perperson.text="%.2f".format(ans1)
