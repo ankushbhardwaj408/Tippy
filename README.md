@@ -25,6 +25,6 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/ankushbhardwaj408/Tippy/blob/main/ezgif-5-22446472eb.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/ankushbhardwaj408/Tippy/blob/main/ezgif-5-afbbc5a3c9.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
